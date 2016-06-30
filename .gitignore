@@ -1,6 +1,6 @@
 /LP Power Data
 
-.idea/workspace.xml
+*.idea/workspace.xml
 *.xml
 
 2Channel_20secCapture_50V10A.pssettings
