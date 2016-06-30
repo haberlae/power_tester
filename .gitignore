@@ -5,7 +5,10 @@
 
 2Channel_20secCapture_50V10A.pssettings
 electrical_power_4-Channels.psdata
-lifesaver_15*
+lifesaver_15.py
+lifesaver_15_v2.py
+lifesaver_15_v3.py
+lifesaver_15_v4.py
 lifesaver_20.py
 lifesaver_20_v2.py
 PFv2.4_high_wattage_failure.psdata
