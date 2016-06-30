@@ -3,6 +3,10 @@
 *.idea/workspace.xml
 *.xml
 
+csv_transform_template.xlsx
+Experiment_Database.xlsx
+Experiment_Database_backup.xlsx
+
 2Channel_20secCapture_50V10A.pssettings
 electrical_power_4-Channels.psdata
 lifesaver_15.py
