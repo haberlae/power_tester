@@ -1,0 +1,17 @@
+{
+    "Emulation Resistance": "12.5",
+    "Subject": "Actuator v2",
+    "Drivetrain": "Rack and Pinion",
+    "Pack Number [XXX]": "Natick 1",
+    "Load [V]": "15.00",
+    "Spring Rate [lb/in]": "20",
+    "ECM": "Test Stand: v4.2 Repaired",
+    "Comments": "",
+    "Weight [lb]": "60",
+    "Clutch": "5",
+    "Load Type": "Digital Load",
+    "Cap Bank": "22",
+    "Walk Style [Normal/LP]": "1.43Hz-5cm",
+    "Pack Model": "Metal Frame",
+    "Speed [MPH]": "1.9"
+}

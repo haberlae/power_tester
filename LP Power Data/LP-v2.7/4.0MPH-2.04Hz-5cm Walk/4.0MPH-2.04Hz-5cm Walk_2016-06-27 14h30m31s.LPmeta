@@ -1,0 +1,17 @@
+{
+    "Load Type": "Digital Load",
+    "Emulation Resistance": "10",
+    "Clutch": "5",
+    "Subject": "Actuator v2",
+    "Pack Model": "Printed Frame",
+    "Weight [lb]": "25",
+    "Pack Number [XXX]": "v2.7",
+    "Drivetrain": "Rack and Pinion",
+    "Spring Rate [lb/in]": "20",
+    "Speed [MPH]": "4.0",
+    "Walk Style [Normal/LP]": "2.04Hz-5cm",
+    "Load [V]": "15.00",
+    "Cap Bank": "22",
+    "Comments": "new rails and bearings",
+    "ECM": "ECM2-072"
+}

@@ -1,0 +1,17 @@
+{
+    "Clutch": "5",
+    "Pack Number [XXX]": "v2.7",
+    "Speed [MPH]": "2.5",
+    "Drivetrain": "Rack and Pinion",
+    "Emulation Resistance": "20",
+    "Spring Rate [lb/in]": "20",
+    "Walk Style [Normal/LP]": "1.68Hz-5cm",
+    "Load Type": "Digital Load",
+    "ECM": "Test Stand: v4.2 Repaired",
+    "Pack Model": "Printed Frame",
+    "Subject": "Actuator v2",
+    "Comments": "new rails and bearings",
+    "Cap Bank": "22",
+    "Weight [lb]": "35",
+    "Load [V]": "15.00"
+}
