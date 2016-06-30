@@ -1,3 +1,17 @@
 /LP Power Data
 
+.idea/workspace.xml
 *.xml
+
+2Channel_20secCapture_50V10A.pssettings
+electrical_power_4-Channels.psdata
+lifesaver_15*
+lifesaver_20.py
+lifesaver_20_v2.py
+PFv2.4_high_wattage_failure.psdata
+pico15sec_capture.au3
+REF_EMOLLE_Database_StopGap.xlsx
+
+*.bat
+
+v.psdata
