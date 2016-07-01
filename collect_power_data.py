@@ -118,7 +118,7 @@ def click_on_file(filename):
 
 def prompt_setup(trial_dict, user_dir):
 
-    trial = Settings(os.path.join(user_dir, "default_settings.txt"))
+    trial = Settings(os.path.abspath(os.path.join(user_dir, "default_settings.txt")))
     msg = "Enter the correct info to describe this trial if the default values need modification:"
     title = "Lightning Packs Power-Data Collection Setup"
     fieldNames = trial.create_field_names()
