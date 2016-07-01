@@ -1,6 +1,6 @@
 import os
 import subprocess
-import re
+import sys
 import autoit
 import time
 import csv
@@ -104,6 +104,11 @@ class Settings(EgStore):
         self.info["Comments"] = user_entered_value_list[14]
 
 
+def get_users_main_directory():
+    # print( os.path.dirname(sys.argv[0]))
+    return os.path.dirname(sys.argv[0])
+
+
 def click_on_file(filename):
     try:
         os.startfile(filename)
@@ -111,9 +116,9 @@ def click_on_file(filename):
         subprocess.call(['open', filename])
 
 
-def prompt_setup(trial_dict):
+def prompt_setup(trial_dict, user_dir):
 
-    trial = Settings("C:\\Users\\Eric\\Desktop\\15sec_Capture\\default_settings.txt")
+    trial = Settings(os.path.join(user_dir, "default_settings.txt"))
     msg = "Enter the correct info to describe this trial if the default values need modification:"
     title = "Lightning Packs Power-Data Collection Setup"
     fieldNames = trial.create_field_names()
@@ -132,9 +137,9 @@ def prompt_setup(trial_dict):
     return trial_dict
 
 
-def make_pack_folder(p_number, w_speed, w_style):
-    root = "C:\\Users\\Eric\\Desktop\\15sec_Capture\\LP Power Data\\"
-    target = root + "LP-{0}".format(p_number)
+def make_pack_folder(p_number, w_speed, w_style, user_dir):
+    root = os.path.abspath(os.path.join(user_dir, "LP Power Data"))
+    target = root + "/LP-{0}".format(p_number)
     if not os.path.exists(target):
         print(" ")
         print("made new pack folder at: ", target)
@@ -150,8 +155,8 @@ def make_speed_folder(s_target, w_speed, w_style):
         return
 
 
-def convert_csv_to_xlsx(csv_filename, dest_filename):
-    wb = load_workbook("C:\\Users\\Eric\\Desktop\\15sec_Capture\\csv_transform_template.xlsx")
+def convert_csv_to_xlsx(csv_filename, dest_filename, user_dir):
+    wb = load_workbook(os.path.join(user_dir, "csv_transform_template.xlsx"))
     ws = wb.get_sheet_by_name("Sheet1")
 
     f = open(csv_filename, 'r')
@@ -193,7 +198,7 @@ def fix_xlsx(path):
     return avg_pwr
 
 
-def recursively_repair_all_csv_files(save_text):
+def recursively_repair_all_csv_files(save_text, user_dir):
     """
     Walks down subdirectories of the save path and updates all csvs to be xlsx files and computes their averages.
     :param save_text:
@@ -208,7 +213,7 @@ def recursively_repair_all_csv_files(save_text):
                 # CONVERT CSV OUTPUT OF PICOSCOPE TO XLSX TO ALLOW AVERAGE CALCULATIONS
                 csv_path = os.path.realpath(os.path.join(root, file))
                 dest_filename = csv_path.replace(".csv", ".xlsx")
-                convert_csv_to_xlsx(csv_path, dest_filename)
+                convert_csv_to_xlsx(csv_path, dest_filename, user_dir)
 
                 # REPAIR XLSX DOCUMENT AND GENERATE DICTIONARY OF 5SEC SPLIT AVERAGES
                 split_number = "{}".format(str(dest_filename).split('_')[-1].strip('.xlsx'))
@@ -227,8 +232,8 @@ def print_average_power(fixed_xlsx):
     print("This run's power was {} Watts".format(magic_num))
 
 
-def patch_experiments_database(trial, run_avgs):
-    wb_path = "C:\\Users\\Eric\\Desktop\\15sec_Capture\\Experiment_Database.xlsx"
+def patch_experiments_database(trial, run_avgs, user_dir):
+    wb_path = os.path.join(user_dir, "Experiment_Database.xlsx")
     wb_exp = load_workbook(filename=wb_path)
     data = wb_exp.get_sheet_by_name("data")
     hr = data.max_row
@@ -295,22 +300,10 @@ def patch_ref_database(fixed_xlsx, final_ref_doc, pack_number, walk_speed):
 
 
 def main():
-    # for i in range(0, 2):
-    #     print(".")
-    # print("Please enter the info below for the pack to be tested: ")
-    # print(" ")
-    # pack_number = ""
-    # while re.search(r'\d\d\d', pack_number) is None:
-    #     pack_number = input("Pack Number (3 digits please): ")
-    # print(" ")
-    # walk_speed = ""
-    # while re.search(r'\d[.]\d', walk_speed) is None:
-    #     walk_speed = input("Test Speed (ex. 2.5/3.5): ")
-    # print(" ")
-    # walk_style = input("Walk Style (LP/Normal): ")
 
+    user_dir = get_users_main_directory()
     trial = {}
-    trial = prompt_setup(trial)
+    trial = prompt_setup(trial, user_dir)
 
     # stopgap for pre-class variables
     walk_speed = trial["Speed [MPH]"]
@@ -318,7 +311,7 @@ def main():
     pack_number = trial["Pack Number [XXX]"]
 
     # MAKE FOLDERS FOR TRIAL BASED ON PREVIOUSLY-ENTERED INPUTS
-    make_pack_folder(pack_number, walk_speed, walk_style)
+    make_pack_folder(pack_number, walk_speed, walk_style, user_dir)
 
     print('.....')
     print("..........Launching.....")
@@ -328,7 +321,7 @@ def main():
     autoit.auto_it_set_option('SendKeyDelay', 10)
 
     # OPEN PICOSCOPE USING OUR DEFAULT WINDOW LAYOUT WITH TWO PANELS AND POWER UP TOP
-    default_pico = "C:\\Users\\Eric\\Desktop\\15sec_Capture\\electrical_power.psdata"
+    default_pico = os.path.join(user_dir, "electrical_power.psdata")
     click_on_file(default_pico)
 
     # PREPARE TO RUN THE RECORD DATA MACRO
@@ -339,7 +332,7 @@ def main():
     autoit.win_wait('Macro Recorder')
     autoit.control_click('Macro Recorder', "[Name:_buttonImport]")
     time.sleep(1)
-    macro_text = "C:\\Users\\Eric\\Desktop\\15sec_Capture\\15sec_pico_record_macro.psmacro"
+    macro_text = os.path.abspath(os.path.join(user_dir, "15sec_pico_record_macro.psmacro"))
     autoit.clip_put(macro_text)
     autoit.win_wait("Open")
     autoit.send('^V', 0)
@@ -356,9 +349,8 @@ def main():
 
     # BEGIN SAVING THE DATA
     i = datetime.now()
-    save_text = "{}".format(os.path.join("C:\\Users\\Eric\\Desktop\\15sec_Capture\\LP Power Data\\",
-                             "LP-{0}".format(pack_number), "{0}MPH-{1} Walk".format(walk_speed, walk_style),
-                             "{0}MPH-{1} Walk_".format(walk_speed, walk_style) + i.strftime('%Y-%m-%d %Hh%Mm%Ss')+".psdata"))
+    save_text = os.path.abspath(os.path.join(user_dir, 'LP Power Data', "{}".format("LP-{0}".format(pack_number)), "{0}MPH-{1} Walk".format(walk_speed, walk_style),
+                             "{0}MPH-{1} Walk_".format(walk_speed, walk_style) + i.strftime('%Y-%m-%d %Hh%Mm%Ss')+ ".psdata"))
     autoit.clip_put(save_text)
 
     # SAVE ALL CAPTURED WAVEFORMS IN PICO FORMAT
@@ -398,14 +390,11 @@ def main():
     print("Sit tight, I'm still doing some thinking....")
 
     # UPDATE ALL CSV FILES TO BE XLSX AND CALCULATE THEIR 5SEC AVERAGES
-    run_avgs = recursively_repair_all_csv_files(save_text)
+    run_avgs = recursively_repair_all_csv_files(save_text, user_dir)
 
     # ADD ALL INFORMATION COLLECTED TO THE EXPERIMENTS SPREADSHEET
-    patch_experiments_database(trial, run_avgs)
+    patch_experiments_database(trial, run_avgs, user_dir)
     print("")
-
-    # THIS IS WHERE THE OLD REF STOPGAP SPREADSHEET USED TO FIX THE MAIN SPREADSHEET
-    # ref_stopgap_spreadsheet = 'C:\\Users\\Eric\\Desktop\\15sec_Capture\\REF_EMOLLE_Database_StopGap.xlsx'
 
     # WRITE THE METADATA SETTINGS TO A FILE FOR FUTURE RECORD
     with open('{}'.format(save_text.replace(".psdata", ".LPmeta")), 'w') as outfile:
