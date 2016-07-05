@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32552869-b111-4022-8065-2bb19b6ccf30" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/electrical_power.psdata" afterPath="$PROJECT_DIR$/electrical_power.psdata" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/15sec_pico_record_macro.psmacro" afterPath="$PROJECT_DIR$/15sec_pico_record_macro.psmacro" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collect_power_data.py" afterPath="$PROJECT_DIR$/collect_power_data.py" />
     </list>
     <ignored path="15sec_Capture.iws" />
@@ -39,8 +41,8 @@
       <file leaf-file-name="collect_power_data.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/collect_power_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3587339">
-              <caret line="220" column="44" selection-start-line="220" selection-start-column="44" selection-end-line="220" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.8992974">
+              <caret line="379" column="27" selection-start-line="379" selection-start-column="27" selection-end-line="379" selection-end-column="27" />
               <folding>
                 <element signature="e#0#82#0" expanded="true" />
                 <element signature="e#4439#4653#0" expanded="false" />
@@ -50,6 +52,7 @@
                 <element signature="e#5794#6089#0" expanded="false" />
                 <element signature="e#6147#6325#0" expanded="false" />
                 <element signature="e#6396#6958#0" expanded="false" />
+                <element signature="e#7736#9359#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -343,7 +346,13 @@
       <option name="project" value="LOCAL" />
       <updated>1467383524988</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="initial functioning peak detection algorithmn lacking in proper estimation of input for frequency">
+      <created>1467413190931</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1467413190931</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -352,22 +361,22 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17591125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32919955" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32844242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5180587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20179608" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32844242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39954853" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39954853" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -408,7 +417,8 @@
     <MESSAGE value="added .xml files to ignore list" />
     <MESSAGE value="removed hard-coded file paths from project" />
     <MESSAGE value="works regardless of main project/directory name" />
-    <option name="LAST_COMMIT_MESSAGE" value="works regardless of main project/directory name" />
+    <MESSAGE value="initial functioning peak detection algorithmn lacking in proper estimation of input for frequency" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial functioning peak detection algorithmn lacking in proper estimation of input for frequency" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -417,6 +427,16 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/detect_peaks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
+          <folding>
+            <element signature="e#73#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/collect_power_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -430,6 +450,25 @@
             <element signature="e#5794#6089#0" expanded="false" />
             <element signature="e#6147#6325#0" expanded="false" />
             <element signature="e#6396#6958#0" expanded="false" />
+            <element signature="e#7736#9359#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collect_power_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#82#0" expanded="true" />
+            <element signature="e#4439#4653#0" expanded="false" />
+            <element signature="e#4439#4570#1" expanded="false" />
+            <element signature="e#4689#4795#0" expanded="false" />
+            <element signature="e#4843#5727#0" expanded="false" />
+            <element signature="e#5794#6089#0" expanded="false" />
+            <element signature="e#6147#6325#0" expanded="false" />
+            <element signature="e#6396#6958#0" expanded="false" />
+            <element signature="e#7736#9359#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -457,6 +496,7 @@
             <element signature="e#5794#6089#0" expanded="false" />
             <element signature="e#6147#6325#0" expanded="false" />
             <element signature="e#6396#6958#0" expanded="false" />
+            <element signature="e#7736#9359#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -484,6 +524,7 @@
             <element signature="e#5794#6089#0" expanded="false" />
             <element signature="e#6147#6325#0" expanded="false" />
             <element signature="e#6396#6958#0" expanded="false" />
+            <element signature="e#7736#9359#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -511,6 +552,7 @@
             <element signature="e#5794#6089#0" expanded="false" />
             <element signature="e#6147#6325#0" expanded="false" />
             <element signature="e#6396#6958#0" expanded="false" />
+            <element signature="e#7736#9359#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -530,16 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/detect_peaks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
-          <folding>
-            <element signature="e#73#120#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35-32/Lib/site-packages/openpyxl/worksheet/worksheet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="4.8296595">
@@ -552,14 +584,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5971944">
           <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detect_peaks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
+          <folding>
+            <element signature="e#73#120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/collect_power_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3587339">
-          <caret line="220" column="44" selection-start-line="220" selection-start-column="44" selection-end-line="220" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.8992974">
+          <caret line="379" column="27" selection-start-line="379" selection-start-column="27" selection-end-line="379" selection-end-column="27" />
           <folding>
             <element signature="e#0#82#0" expanded="true" />
             <element signature="e#4439#4653#0" expanded="false" />
@@ -569,6 +610,7 @@
             <element signature="e#5794#6089#0" expanded="false" />
             <element signature="e#6147#6325#0" expanded="false" />
             <element signature="e#6396#6958#0" expanded="false" />
+            <element signature="e#7736#9359#0" expanded="false" />
           </folding>
         </state>
       </provider>

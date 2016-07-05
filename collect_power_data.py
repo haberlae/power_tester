@@ -213,18 +213,26 @@ def fix_xlsx(path, walk_speed):
     sheet1 = wb.active
     take_abs_val(sheet1, 2)  # Taking the abs_val ignores zeroing and low level noise errors!
     hr = sheet1.max_row
+
+    # generate list of all power values over this particular 5sec interval excel sheet
     pwr_list = []
     for i in range(4, hr+1):
         pwr_list.append(sheet1.cell(row=i, column=2).value)
-    # guess_avg_pwr = round(statistics.mean(pwr_list), 2)
+
+    # Find the single maximum power peak for the full 5sec interval
     max_peak = round(max(pwr_list), 4)
-    peaks = detect_peaks(pwr_list, mph=(0.92*max_peak), mpd=(0.9*gen_guess_frequency(walk_speed)), edge='rising', show=True)
-    # print(len(peaks))
+
+    # Detect the peaks that are over 80% of the max peak and are spaced a minimum 90% of the walk frequency apart.
+    peaks = detect_peaks(pwr_list, mph=(0.8*max_peak), mpd=(0.9*gen_guess_frequency(walk_speed)), edge='rising', show=False)
+
+    # Copy only the data that falls between the first and the last peaks to column 3 of the Excel sheet.
     for i in range(4, hr+1):
         if peaks[0] <= (i-4) <= peaks[-1]:
             sheet1.cell(row=i, column=3).value = sheet1.cell(row=i, column=2).value
         else:
             continue
+
+    # Now calculate the average of this truncated Column 3 (D) to get the true Average Power for this 5sec Interval
     truncated_pwr_list = []
     for i in range(4, hr+1):
         if sheet1.cell(row=i, column=3).value is not None:
@@ -367,7 +375,7 @@ def main():
     autoit.win_activate('Macro Recorder')
     autoit.win_wait('Macro Recorder')
     autoit.control_click('Macro Recorder', "[Name:_buttonExecute]")
-    time.sleep(43)
+    time.sleep(22)
     autoit.win_activate('Macro Recorder')
     autoit.send('{ESCAPE}')
 
