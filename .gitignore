@@ -1,7 +1,10 @@
 /LP Power Data
+/RecPwer/LP Power Data
 
 *.idea/workspace.xml
 *.xml
+*/Macros
+Meta.txt
 
 *csv_transform_template.xlsx
 *Experiment_Database.xlsx

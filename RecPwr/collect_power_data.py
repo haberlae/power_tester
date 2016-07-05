@@ -1,3 +1,5 @@
+from __future__ import division, print_function  # part one of peak detect imports
+
 import os
 import subprocess
 import sys
@@ -14,7 +16,13 @@ from openpyxl.styles import Alignment
 import statistics
 import json
 
+# remaining peak detect imports
+from detect_peaks import detect_peaks
+import numpy as np
+sys.path.insert(1, r'./../functions')  # add to pythonpath
 
+
+# BEGIN CREATION OF SETTINGS CLASS THAT IS USED TO REMEMBER USER INPUT ABOUT TEST RUNS
 # -----------------------------------------------------------------------
 # define a class named Settings as a subclass of EgStore
 # -----------------------------------------------------------------------
@@ -105,6 +113,9 @@ class Settings(EgStore):
 
 
 def get_users_main_directory():
+    """ If a user has pulled this project from the repo, this ensures program is run from their download directory
+    :return:
+    """
     # print( os.path.dirname(sys.argv[0]))
     return os.path.dirname(sys.argv[0])
 
@@ -181,26 +192,67 @@ def take_abs_val(sheet, column_number):
     sheet.cell(row=1, column=column_number).value = "abs({0})".format(col_name)
 
 
-def fix_xlsx(path):
+def gen_guess_frequency(walk_speed):
+    # usual_correlation = {"1.5": 1.30, "1.9": 1.43, "2.5": 1.68, "3.5": 1.95, "4.0": 2.04}
+    if walk_speed == "1.5":
+        return 576
+    if walk_speed == "1.9":
+        return 524.5
+    if walk_speed == "2.5":
+        return 446
+    if walk_speed == "3.5":
+        return 385
+    if walk_speed == "4.0":
+        return 367.5
+    else:
+        return 469
+
+
+def fix_xlsx(path, walk_speed):
     wb = load_workbook(filename=path)
     sheet1 = wb.active
-    take_abs_val(sheet1, 2)
+    take_abs_val(sheet1, 2)  # Taking the abs_val ignores zeroing and low level noise errors!
     hr = sheet1.max_row
+
+    # generate list of all power values over this particular 5sec interval excel sheet
     pwr_list = []
     for i in range(4, hr+1):
         pwr_list.append(sheet1.cell(row=i, column=2).value)
-    avg_pwr = round(statistics.mean(pwr_list), 2)
-    sheet1['C1'].value = "Avg. Power"
-    sheet1['C2'].value = "(W)"
-    # sheet1['C4'].value = "=ROUND(AVERAGE(B4:B15050),2)"
-    sheet1['C4'].value = avg_pwr
+
+    # Find the single maximum power peak for the full 5sec interval
+    max_peak = round(max(pwr_list), 4)
+
+    # Detect the peaks that are over 80% of the max peak and are spaced a minimum 90% of the walk frequency apart.
+    peaks = detect_peaks(pwr_list, mph=(0.8*max_peak), mpd=(0.9*gen_guess_frequency(walk_speed)), edge='rising', show=False)
+
+    # Copy only the data that falls between the first and the last peaks to column 3 of the Excel sheet.
+    for i in range(4, hr+1):
+        if peaks[0] <= (i-4) <= peaks[-1]:
+            sheet1.cell(row=i, column=3).value = sheet1.cell(row=i, column=2).value
+        else:
+            continue
+
+    # Now calculate the average of this truncated Column 3 (D) to get the true Average Power for this 5sec Interval
+    truncated_pwr_list = []
+    for i in range(4, hr+1):
+        if sheet1.cell(row=i, column=3).value is not None:
+            truncated_pwr_list.append(sheet1.cell(row=i, column=3).value)
+        else:
+            continue
+    avg_pwr = round(statistics.mean(truncated_pwr_list), 2)
+    sheet1['D1'].value = "Avg. Power"
+    sheet1['D2'].value = "(W)"
+    # sheet1['D4'].value = "=ROUND(AVERAGE(B4:B15050),2)"
+    sheet1['D4'].value = avg_pwr
     wb.save(filename=path)
     return avg_pwr
 
 
-def recursively_repair_all_csv_files(save_text, user_dir):
+def recursively_repair_all_csv_files(save_text, user_dir, walk_speed):
     """
     Walks down subdirectories of the save path and updates all csvs to be xlsx files and computes their averages.
+    :param user_dir:
+    :param walk_speed:
     :param save_text:
     :return:run_avgs:
     """
@@ -217,7 +269,7 @@ def recursively_repair_all_csv_files(save_text, user_dir):
 
                 # REPAIR XLSX DOCUMENT AND GENERATE DICTIONARY OF 5SEC SPLIT AVERAGES
                 split_number = "{}".format(str(dest_filename).split('_')[-1].strip('.xlsx'))
-                run_avgs[split_number] = fix_xlsx(dest_filename)
+                run_avgs[split_number] = fix_xlsx(dest_filename, walk_speed)
 
     #  AND THE TOTAL COMBINED AVERAGE
     run_avgs["total_avg"] = round(statistics.mean(run_avgs.values()), 2)
@@ -228,7 +280,7 @@ def recursively_repair_all_csv_files(save_text, user_dir):
 def print_average_power(fixed_xlsx):
     wb_fixed = load_workbook(filename=fixed_xlsx)
     sheet1_fixed = wb_fixed.get_sheet_by_name("Sheet1")
-    magic_num = sheet1_fixed['C4'].value
+    magic_num = sheet1_fixed['D4'].value
     print("This run's power was {} Watts".format(magic_num))
 
 
@@ -279,26 +331,6 @@ def patch_experiments_database(trial, run_avgs, user_dir):
     wb_exp.save(filename=wb_path)
 
 
-def patch_ref_database(fixed_xlsx, final_ref_doc, pack_number, walk_speed):
-    wb_fixed = load_workbook(filename=fixed_xlsx)
-    sheet1_fixed = wb_fixed.get_sheet_by_name("Sheet1")
-    magic_num = sheet1_fixed['C4'].value
-    mod_row = 4+int(str(pack_number).lstrip("0"))
-
-    if float(walk_speed) == 2.5:
-        wb_ref = load_workbook(filename=final_ref_doc)
-        packsheet_ref = wb_ref.get_sheet_by_name("packs")
-        packsheet_ref['Q{}'.format(mod_row)].value = magic_num
-        wb_ref.save(filename=final_ref_doc)
-    if float(walk_speed) == 3.5:
-        wb_ref = load_workbook(filename=final_ref_doc)
-        packsheet_ref = wb_ref.get_sheet_by_name("packs")
-        packsheet_ref['R{}'.format(mod_row)].value = magic_num
-        wb_ref.save(filename=final_ref_doc)
-    print("")
-    print("This run's power was {} Watts".format(magic_num))
-
-
 def main():
 
     user_dir = get_users_main_directory()
@@ -332,7 +364,7 @@ def main():
     autoit.win_wait('Macro Recorder')
     autoit.control_click('Macro Recorder', "[Name:_buttonImport]")
     time.sleep(1)
-    macro_text = os.path.abspath(os.path.join(user_dir, "15sec_pico_record_macro.psmacro"))
+    macro_text = os.path.abspath(os.path.join(user_dir, "record_20sec.psmacro"))
     autoit.clip_put(macro_text)
     autoit.win_wait("Open")
     autoit.send('^V', 0)
@@ -343,7 +375,7 @@ def main():
     autoit.win_activate('Macro Recorder')
     autoit.win_wait('Macro Recorder')
     autoit.control_click('Macro Recorder', "[Name:_buttonExecute]")
-    time.sleep(43)
+    time.sleep(22)
     autoit.win_activate('Macro Recorder')
     autoit.send('{ESCAPE}')
 
@@ -390,7 +422,7 @@ def main():
     print("Sit tight, I'm still doing some thinking....")
 
     # UPDATE ALL CSV FILES TO BE XLSX AND CALCULATE THEIR 5SEC AVERAGES
-    run_avgs = recursively_repair_all_csv_files(save_text, user_dir)
+    run_avgs = recursively_repair_all_csv_files(save_text, user_dir, walk_speed)
 
     # ADD ALL INFORMATION COLLECTED TO THE EXPERIMENTS SPREADSHEET
     patch_experiments_database(trial, run_avgs, user_dir)
