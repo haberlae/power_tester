@@ -1,27 +1,50 @@
 /LP Power Data
 
-*.idea/workspace.xml
-*.xml
-*/Macros
-Meta.txt
+/RecPwr/LP Power Data
 
-*csv_transform_template.xlsx
+
+*.idea/workspace.xml
+
+*.xml
+
+*/Macros
+
+*Meta.txt
+
+*
+csv_transform_template.xlsx
+
 *Experiment_Database.xlsx
+
 *Experiment_Database_backup.xlsx
+
 *default_settings.txt
 
+
 2Channel_20secCapture_50V10A.pssettings
+
 electrical_power_4-Channels.psdata
+
 lifesaver_15.py
+
 lifesaver_15_v2.py
+
 lifesaver_15_v3.py
+
 lifesaver_15_v4.py
+
 lifesaver_20.py
+
 lifesaver_20_v2.py
+
 PFv2.4_high_wattage_failure.psdata
+
 pico15sec_capture.au3
+
 REF_EMOLLE_Database_StopGap.xlsx
 
+
 *.bat
+
 
 v.psdata
