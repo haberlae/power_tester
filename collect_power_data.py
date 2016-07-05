@@ -364,7 +364,7 @@ def main():
     autoit.win_wait('Macro Recorder')
     autoit.control_click('Macro Recorder', "[Name:_buttonImport]")
     time.sleep(1)
-    macro_text = os.path.abspath(os.path.join(user_dir, "15sec_pico_record_macro.psmacro"))
+    macro_text = os.path.abspath(os.path.join(user_dir, "record_20sec.psmacro"))
     autoit.clip_put(macro_text)
     autoit.win_wait("Open")
     autoit.send('^V', 0)
