@@ -26,3 +26,10 @@ REF_EMOLLE_Database_StopGap.xlsx
 *.bat
 
 v.psdata
+
+*.pypirc
+MANIFEST.in
+setup.cfg
+setup.py
+
+
