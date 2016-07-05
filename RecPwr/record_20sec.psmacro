@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?><document>
+    <userealtime>True</userealtime>
+    <event category="Interaction" time="05/07/16 10:36:40.468"> Run.Pressed=True</event>
+    <event category="Interaction" time="05/07/16 10:37:01.468"> Run.Pressed=False</event>
+</document>
