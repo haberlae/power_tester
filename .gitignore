@@ -1,5 +1,7 @@
 /LP Power Data
-/RecPwer/LP Power Data
+/RecPwr/LP Power Data
+/dist
+/RecPwr.egg-info*
 
 *.idea/workspace.xml
 *.xml
