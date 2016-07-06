@@ -1,11 +1,11 @@
 Metadata-Version: 1.1
 Name: RecPwr
-Version: 1.4.0
-Summary: MIT license
+Version: 1.5.0
+Summary: RecPwr measurements
 Home-page: https://github.com/haberlae/power_tester
 Author: Eric Haberland
 Author-email: ehaberland@lightningpacks.com
 License: LICENSE.txt
-Download-URL: https://github.com/haberlae/power_tester/tarball/1.4.0
+Download-URL: https://github.com/haberlae/power_tester/tarball/1.5.0
 Description: UNKNOWN
 Platform: UNKNOWN
