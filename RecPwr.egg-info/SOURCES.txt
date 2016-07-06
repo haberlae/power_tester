@@ -1,11 +1,19 @@
 MANIFEST.in
 setup.cfg
 setup.py
+RecPwr/Experiment_Database.xlsx
+RecPwr/Experiment_Database_backup.xlsx
+RecPwr/RUN.bat
 RecPwr/__init__.py
 RecPwr/collect_power_data.py
+RecPwr/csv_transform_template.xlsx
 RecPwr/detect_peaks.py
+RecPwr/electrical_power.psdata
+RecPwr/record_20sec.psmacro
 RecPwr.egg-info/PKG-INFO
 RecPwr.egg-info/SOURCES.txt
 RecPwr.egg-info/dependency_links.txt
 RecPwr.egg-info/requires.txt
 RecPwr.egg-info/top_level.txt
+RecPwr/LP Power Data/empty.txt
+RecPwr/__pycache__/detect_peaks.cpython-35.pyc

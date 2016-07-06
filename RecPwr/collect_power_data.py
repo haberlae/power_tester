@@ -120,6 +120,17 @@ def get_users_main_directory():
     return os.path.dirname(sys.argv[0])
 
 
+def check_lp_power_data_folder_exists(user_dir):
+    if not os.path.exists(os.path.abspath(os.path.join(user_dir, "LP Power Data"))):
+        os.mkdir(os.path.abspath(os.path.join(user_dir, "LP Power Data")))
+
+
+def check_database_file_exists(user_dir):
+    # print(os.path.abspath(os.path.join(user_dir, "Experiment_Database.xlsx")))
+    if not os.path.exists(os.path.abspath(os.path.join(user_dir, "Experiment_Database.xlsx"))):
+        easygui.ccbox(title="WARNING", msg="The database file Experiment_Database.xlsx where power data is stored was not found in the RecPwr main program directory. In order to successfully Save data and to ensure that the data you capture is added sequentially with the correct Run number at the bottom of the database, you must Copy and Paste the most up to date Excel_Database.xlsx file from the Network drive into the folder '{0}' and Then click CONTINUE or rerun this program. Once testing is complete, make sure to copy this Local file back to the Network so that the Network is always up to date.".format(os.path.abspath(user_dir)))
+
+
 def click_on_file(filename):
     try:
         os.startfile(filename)
@@ -334,6 +345,8 @@ def patch_experiments_database(trial, run_avgs, user_dir):
 def main():
 
     user_dir = get_users_main_directory()
+    check_lp_power_data_folder_exists(user_dir)
+    check_database_file_exists(user_dir)
     trial = {}
     trial = prompt_setup(trial, user_dir)
 
